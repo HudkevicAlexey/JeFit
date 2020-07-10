@@ -28,13 +28,13 @@ public class MyLogsPage extends BasePage {
         return this;
     }
 
-    public MyLogsPage daySelection(String day){
+    public MyLogsPage daySelection(String day) {
         WebElement date = driver.findElement(By.xpath(String.format(dateSelectionLocator, day)));
         date.click();
         return this;
     }
 
-    public MyLogsPage addWorkoutLogsButtonClick(){
+    public MyLogsPage addWorkoutLogsButtonClick() {
         addWorkoutLogsButton.click();
         return this;
     }

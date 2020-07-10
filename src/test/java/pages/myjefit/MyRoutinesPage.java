@@ -18,11 +18,10 @@ public class MyRoutinesPage extends BasePage {
     WebElement createNewRoutineButtonXpath;
     @FindBy(xpath = "//a[contains(text(),'Download A Routine')]")
     WebElement downloadRoutineButtonXpath;
-    String actualRoutineNameLocator = "//strong[contains(text(),'%s')]/ancestor::table[@id='hor-minimalist_3']";
+    String actualRoutineNameLocator = "//strong[contains(text(),'%s')]/../../../../../..//*[contains(text(),'%s')]";
 
     String routineManagerName = "%s";
     WebElement routineCreationField;
-    WebElement routineInformationField;
 
     public MyRoutinesPage(WebDriver driver) {
         super(driver);
@@ -80,15 +79,9 @@ public class MyRoutinesPage extends BasePage {
         return this;
     }
 
-    public WebElement createdRoutineFields(WebDriver driver, String routineName) {
-        return driver.findElement(By.xpath(String.format(actualRoutineNameLocator, routineName)));
-    }
-
-    public MyRoutinesPage routinesInfoSearch() {
-        createdRoutineFields(driver, "RotineCase1").getText();
-        System.out.println(routineInformationField.getText());
+    public MyRoutinesPage routineInformationVerification(String routineName, String routineDetails) {
+        WebElement routinesInformation = driver.findElement(By.xpath(String.format(actualRoutineNameLocator, routineName, routineDetails)));
+        routinesInformation.isDisplayed();
         return this;
     }
-
-
 }

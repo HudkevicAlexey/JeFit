@@ -6,21 +6,23 @@ import org.testng.annotations.Test;
 public class JetFitTest extends BaseTest {
 
     @Test
-    public void loginTest(){
-        loginStep
-                .login("TestsUser", "!QAZ2wsx")
-                .successLoginVerification();
+    public void loginTest() {
+        loginStep.login("TestsUser", "!QAZ2wsx");
+        loginPage.successLoginVerification();
     }
 
     @Test
-    public void loginErrorMessageTest(){
+    public void loginErrorMessageTest() {
         loginStep
-                .login("", "")
-                .failedLoginMessageVerification()
-                .login("", "!QAZ2wsx")
-                .failedLoginMessageVerification()
-                .login("TestsUser", "")
-                .failedLoginMessageVerification();
+                .login("", "");
+        loginPage
+                .errorLoginMessageVerification("Invalid username or password")
+                .login("", "!QAZ2wsx");
+        loginPage
+                .errorLoginMessageVerification("Invalid username or password")
+                .login("TestsUser", "");
+        loginPage
+                .errorLoginMessageVerification("Invalid username or password");
     }
 
     @Test
@@ -33,23 +35,31 @@ public class JetFitTest extends BaseTest {
         Routine routineCase6 = new Routine("RoutineCase6", "5", "1", "3", "2", "NoDescr", "testTag");
         Routine routineCase7 = new Routine("RoutineCase7", "6", "1", "3", "2", "NoDescr", "testTag");
         loginStep.login("TestsUser", "!QAZ2wsx");
-        routineCreation.routineCreation(routineCase1);
-        routineCreation.routineCreation(routineCase2);
-        routineCreation.routineCreation(routineCase3);
-        routineCreation.routineCreation(routineCase4);
-        routineCreation.routineCreation(routineCase5);
-        routineCreation.routineCreation(routineCase6);
-        routineCreation.routineCreation(routineCase7);
+        routineCreation
+                .routineCreation(routineCase1)
+                .routineVerification("RoutineCase1", "1 days / week", "Day of the Week", "General Fitness", "Beginner", "testTag", "NoDescr")
+                .routineCreation(routineCase2)
+                .routineVerification("RoutineCase2", "2 days / week", "Numerical", "Bulking", "Intermediate", "testTag", "NoDescr")
+                .routineCreation(routineCase3)
+                .routineVerification("RoutineCase3", "3 days / week", "Numerical", "Cutting", "Advanced", "testTag", "NoDescr")
+                .routineCreation(routineCase4)
+                .routineVerification("RoutineCase4", "4 days / week", "Numerical", "Sport Specific", "Advanced", "testTag", "NoDescr")
+                .routineCreation(routineCase5)
+                .routineVerification("RoutineCase5", "5 days / week", "Numerical", "Sport Specific", "Advanced", "testTag", "NoDescr")
+                .routineCreation(routineCase6)
+                .routineVerification("RoutineCase6", "6 days / week", "Numerical", "Sport Specific", "Advanced", "testTag", "NoDescr")
+                .routineCreation(routineCase7)
+                .routineVerification("RoutineCase7", "7 days / week", "Numerical", "Sport Specific", "Advanced", "testTag", "NoDescr");
     }
 
     @Test
-    public void addCommonRoutineTest(){
+    public void addCommonRoutineTest() {
         loginStep.login("TestsUser", "!QAZ2wsx");
-        routineCreation.addRoutine("FitBody Plan");
+        routineCreation.routineDownloading("FitBody Plan");
     }
+
     @Test
     public void test() {
         loginStep.login("TestsUser", "!QAZ2wsx");
-        routineCreation.routineVerification();
     }
 }

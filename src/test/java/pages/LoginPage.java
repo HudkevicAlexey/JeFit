@@ -2,9 +2,8 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-import steps.Login;
+import steps.LoginSteps;
 
 public class LoginPage extends BasePage {
 
@@ -13,6 +12,7 @@ public class LoginPage extends BasePage {
     By PASSWORD_id = By.id("navbar_password");
     By LOGIN_BUTTON_className = By.className("loginblueButton1");
     By LOGIN_ERROR_MESSAGE_id = By.id("invalidpassworderrormessage");
+    By googleSignInButton = By.className("googleLoginButton");
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -24,6 +24,7 @@ public class LoginPage extends BasePage {
     }
 
     protected LoginPage isPageOpened() {
+        driver.findElement(googleSignInButton).isDisplayed();
         return this;
     }
 
@@ -48,8 +49,8 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public Login failedLoginMessageVerification() {
-        Assert.assertEquals(driver.findElement(LOGIN_ERROR_MESSAGE_id).getText(), "Invalid username or password", "Error message is not displayed or not matching with Expected text");
-        return new Login(driver);
+    public LoginSteps errorLoginMessageVerification(String expectedErrorMessage) {
+        Assert.assertEquals(driver.findElement(LOGIN_ERROR_MESSAGE_id).getText(), expectedErrorMessage, "Error message is not displayed or not matching with Expected text");
+        return new LoginSteps(driver);
     }
 }

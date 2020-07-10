@@ -6,17 +6,18 @@ import org.openqa.selenium.WebDriver;
 import pages.RoutinesPage;
 import pages.myjefit.MyRoutinesPage;
 
-public class RoutineCreation extends MyRoutinesPage {
+public class RoutineSteps extends MyRoutinesPage {
 
     MyRoutinesPage myRoutinesPage = new MyRoutinesPage(driver);
     RoutinesPage routinesPage = new RoutinesPage(driver);
 
-    public RoutineCreation(WebDriver driver) {
+
+    public RoutineSteps(WebDriver driver) {
         super(driver);
     }
 
     @Step("Routine Creation")
-    public RoutineCreation routineCreation(Routine routine) {
+    public RoutineSteps routineCreation(Routine routine) {
         myRoutinesPage
                 .openPage()
                 .isPageOpened()
@@ -26,8 +27,8 @@ public class RoutineCreation extends MyRoutinesPage {
         return this;
     }
 
-    @Step("Adding Routine")
-    public RoutineCreation addRoutine(String routineName) {
+    @Step("Adding Routine {String routineName}")
+    public RoutineSteps routineDownloading(String routineName) {
         myRoutinesPage
                 .openPage()
                 .isPageOpened()
@@ -38,13 +39,16 @@ public class RoutineCreation extends MyRoutinesPage {
         return this;
     }
 
-    @Step("Routine Creation Verification")
-    public RoutineCreation routineVerification() {
+    @Step("Routine Verification {String routineName}")
+    public RoutineSteps routineVerification(String routineName, String frequency, String dayType, String type, String difficulty, String description, String tags) {
         myRoutinesPage
-                .openPage()
-                .isPageOpened()
-                .routinesInfoSearch();
+                .routineInformationVerification(routineName, frequency)
+                .routineInformationVerification(routineName, dayType)
+                .routineInformationVerification(routineName, type)
+                .routineInformationVerification(routineName, difficulty)
+                .routineInformationVerification(routineName, tags)
+                .routineInformationVerification(routineName, description);
         return this;
     }
-
 }
+

@@ -7,6 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pages.LoginPage;
 import steps.LoginSteps;
+import steps.LogsSteps;
 import steps.RoutineSteps;
 import utils.CapabilitiesGenerator;
 
@@ -16,8 +17,9 @@ public class BaseTest {
 
     public WebDriver driver;
     LoginSteps loginStep;
-    RoutineSteps routineCreation;
+    RoutineSteps routineSteps;
     LoginPage loginPage;
+    LogsSteps logsSteps;
 
 
     @BeforeMethod
@@ -25,8 +27,10 @@ public class BaseTest {
         driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         loginStep = new LoginSteps(driver);
-        routineCreation = new RoutineSteps(driver);
+        routineSteps = new RoutineSteps(driver);
         loginPage = new LoginPage(driver);
+        routineSteps = new RoutineSteps(driver);
+        logsSteps = new LogsSteps(driver);
     }
 
     @AfterMethod(alwaysRun = true)

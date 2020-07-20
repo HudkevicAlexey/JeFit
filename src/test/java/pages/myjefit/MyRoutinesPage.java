@@ -1,10 +1,9 @@
 package pages.myjefit;
 
 import models.Routine;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.testng.Assert;
 import pages.BasePage;
 import org.openqa.selenium.support.ui.Select;
 
@@ -18,7 +17,9 @@ public class MyRoutinesPage extends BasePage {
     WebElement createNewRoutineButtonXpath;
     @FindBy(xpath = "//a[contains(text(),'Download A Routine')]")
     WebElement downloadRoutineButtonXpath;
-    String actualRoutineNameLocator = "//strong[contains(text(),'%s')]/../../../../../..//*[contains(text(),'%s')]";
+    By deleteButtonXpath = By.xpath("//table[@id='hor-minimalist_3']//a[2]");
+    String actualRoutineNameLocator = "//strong[contains(text(),'%s')]/ancestor::tbody";
+    By dismissButton = By.xpath("//button[contains(text(),'Dismiss')]");
 
     String routineManagerName = "%s";
     WebElement routineCreationField;
@@ -52,25 +53,30 @@ public class MyRoutinesPage extends BasePage {
         return this;
     }
 
-    public MyRoutinesPage selectValue(String value) {
+    public MyRoutinesPage selectValueByName(String value) {
         Select select = new Select(routineCreationField);
-        select.selectByValue(value);
+        select.selectByVisibleText(value);
         return this;
     }
 
     public MyRoutinesPage routineFormFilling(Routine routine) {
         filedSelection(driver, "rpname").write(routine.getRoutineName());
-        filedSelection(driver, "dayselect").selectValue(routine.getFrequency());
-        filedSelection(driver, "daytype").selectValue(routine.getDataType());
-        filedSelection(driver, "typeselect").selectValue(routine.getType());
-        filedSelection(driver, "levelselect").selectValue(routine.getDifficulty());
+        filedSelection(driver, "dayselect").selectValueByName(routine.getFrequency());
+        filedSelection(driver, "daytype").selectValueByName(routine.getDataType());
+        filedSelection(driver, "typeselect").selectValueByName(routine.getType());
+        filedSelection(driver, "levelselect").selectValueByName(routine.getDifficulty());
         filedSelection(driver, "rptext").write(routine.getDescription());
         filedSelection(driver, "rtags").write(routine.getTags());
         return this;
     }
 
     public MyRoutinesPage clickSaveButton() {
-        saveButtonName.click();
+        try {
+            saveButtonName.click();
+        }catch (ElementClickInterceptedException e){
+            driver.findElement(dismissButton).click();
+            saveButtonName.click();
+        }
         return this;
     }
 
@@ -80,8 +86,23 @@ public class MyRoutinesPage extends BasePage {
     }
 
     public MyRoutinesPage routineInformationVerification(String routineName, String routineDetails) {
-        WebElement routinesInformation = driver.findElement(By.xpath(String.format(actualRoutineNameLocator, routineName, routineDetails)));
-        routinesInformation.isDisplayed();
+        String routinesInformation = driver.findElement(By.xpath(String.format(actualRoutineNameLocator, routineName))).getText();
+        Assert.assertTrue(routinesInformation.contains(routineDetails), "");
         return this;
+    }
+
+    public MyRoutinesPage clickDeleteRoutineButton() {
+        driver.findElement(deleteButtonXpath).click();
+        driver.switchTo().alert().accept();
+        return this;
+    }
+
+    public boolean deleteButtonSearch() {
+        try {
+            driver.findElement(deleteButtonXpath).isDisplayed();
+            return true;
+        } catch (NoSuchElementException e){
+            return false;
+        }
     }
 }

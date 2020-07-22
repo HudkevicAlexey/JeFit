@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import pages.BasePage;
 
 import java.util.List;
@@ -43,9 +42,8 @@ public class MyLogsPage extends BasePage {
     }
 
     public MyLogsPage addWorkoutLogsButtonClick() {
-        Actions builder = new Actions(driver);
-        WebElement el = driver.findElement(By.xpath("//button[contains(text(),'+ Add Workout Logs')]"));
-        builder.moveToElement(el).click(el);
+        waitForJStoLoad();
+        driver.findElement(By.xpath(addWorkoutLogsButton)).click();
         return this;
     }
 

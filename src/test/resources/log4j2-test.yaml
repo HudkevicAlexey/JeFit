@@ -1,11 +1,11 @@
 #https://springframework.guru/log4j-2-configuration-using-yaml/
 #https://logging.apache.org/log4j/2.x/manual/configuration.html
 Configuration:
-  status: DEBUG
+  status: WARN
   Properties:
     Property:
       - name: "DefaultPattern"
-        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %level [%t] [%c] - %msg%n"
+        value: "%green{%-5level}" "%blue{yyyy-MM-dd HH:mm:ss.SSS} %level [%t] [%c] - %msg%n"
   Appenders:
     Console:
       name: consoleAppender

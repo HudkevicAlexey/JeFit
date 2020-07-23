@@ -75,8 +75,8 @@ public class MyRoutinesPage extends BasePage {
 
     public MyRoutinesPage clickSaveButton() {
         try {
-            saveButtonName.click();
-        } catch (ElementClickInterceptedException e) {
+            executor.executeScript("arguments[0].click();",saveButtonName);
+        } catch (UnknownError e) {
             driver.findElement(dismissButton).click();
             saveButtonName.click();
         }

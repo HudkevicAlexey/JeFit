@@ -22,6 +22,7 @@ public class MyLogsPage extends BasePage {
     By createLogButton = By.xpath("//button[@class='add-log-button']");
     By editButton = By.xpath("//span[@id='edit-session']");
     By logRecordLocator = By.xpath("//div[@class='exercise-block']");
+    By dismissButton = By.xpath("//button[contains(text(),'Dismiss')]");
 
     public MyLogsPage(WebDriver driver) {
         super(driver);
@@ -116,7 +117,13 @@ public class MyLogsPage extends BasePage {
     }
 
     public MyLogsPage createLogButtonClick() {
-        driver.findElement(createLogButton).click();
+        WebElement addLogButton = driver.findElement(createLogButton);
+        try {
+            executor.executeScript("arguments[0].click();", addLogButton);
+        } catch (UnknownError e) {
+            driver.findElement(dismissButton).click();
+            addLogButton.click();
+        }
         return this;
     }
 
@@ -132,10 +139,10 @@ public class MyLogsPage extends BasePage {
         return this;
     }
 
-    public MyLogsPage logsRecordVerification(String exercise, String exerciseCount, String message) {
+    public MyLogsPage logsRecordVerification(String exercise, String exerciseCount) {
         String routinesInformation = driver.findElement(logRecordLocator).getText();
-        Assert.assertTrue(routinesInformation.contains(exercise), message);
-        Assert.assertTrue(routinesInformation.contains(exerciseCount), message);
+        Assert.assertTrue(routinesInformation.contains(exercise));
+        Assert.assertTrue(routinesInformation.contains(exerciseCount));
         return this;
     }
 }

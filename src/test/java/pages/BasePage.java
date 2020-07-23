@@ -43,15 +43,14 @@ public abstract class BasePage {
         // wait for jQuery to load
         ExpectedCondition<Boolean> jQueryLoad = driver -> {
             try {
-                return ((Long)((JavascriptExecutor)driver).executeScript("return jQuery.active") == 0);
-            }
-            catch (Exception e) {
+                return ((Long) ((JavascriptExecutor) driver).executeScript("return jQuery.active") == 0);
+            } catch (Exception e) {
                 return true;
             }
         };
 
         // wait for Javascript to load
-        ExpectedCondition<Boolean> jsLoad = driver -> ((JavascriptExecutor)driver).executeScript("return document.readyState")
+        ExpectedCondition<Boolean> jsLoad = driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState")
                 .toString().equals("complete");
 
         return wait.until(jQueryLoad) && wait.until(jsLoad);

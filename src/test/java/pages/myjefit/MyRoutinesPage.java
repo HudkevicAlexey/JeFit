@@ -3,6 +3,7 @@ package pages.myjefit;
 import models.Routine;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import pages.BasePage;
 import org.openqa.selenium.support.ui.Select;
@@ -17,8 +18,8 @@ public class MyRoutinesPage extends BasePage {
     WebElement createNewRoutineButtonXpath;
     @FindBy(xpath = "//a[contains(text(),'Download A Routine')]")
     WebElement downloadRoutineButtonXpath;
-    By deleteButtonXpath = By.xpath("//table[@id='hor-minimalist_3']//a[2]");
     String actualRoutineNameLocator = "//strong[contains(text(),'%s')]/ancestor::tbody";
+    String deleteButtonXpath = actualRoutineNameLocator + "//a[2]";
     By dismissButton = By.xpath("//button[contains(text(),'Dismiss')]");
 
     String routineManagerName = "%s";
@@ -27,6 +28,8 @@ public class MyRoutinesPage extends BasePage {
     public MyRoutinesPage(WebDriver driver) {
         super(driver);
     }
+
+    JavascriptExecutor executor = (JavascriptExecutor) driver;
 
     public MyRoutinesPage openPage() {
         driver.get("https://www.jefit.com/my-jefit/my-routines/routine-manager.php");
@@ -73,7 +76,7 @@ public class MyRoutinesPage extends BasePage {
     public MyRoutinesPage clickSaveButton() {
         try {
             saveButtonName.click();
-        }catch (ElementClickInterceptedException e){
+        } catch (ElementClickInterceptedException e) {
             driver.findElement(dismissButton).click();
             saveButtonName.click();
         }
@@ -85,24 +88,17 @@ public class MyRoutinesPage extends BasePage {
         return this;
     }
 
-    public MyRoutinesPage routineInformationVerification(String routineName, String routineDetails) {
+    public MyRoutinesPage routineInformationVerification(String routineName, String routineDetails, String message) {
         String routinesInformation = driver.findElement(By.xpath(String.format(actualRoutineNameLocator, routineName))).getText();
-        Assert.assertTrue(routinesInformation.contains(routineDetails), "");
+        Assert.assertTrue(routinesInformation.contains(routineDetails), message);
         return this;
     }
 
-    public MyRoutinesPage clickDeleteRoutineButton() {
-        driver.findElement(deleteButtonXpath).click();
+    public MyRoutinesPage deleteButtonSearch(String routineName) {
+        WebElement deleteButton = driver.findElement(By.xpath(String.format(deleteButtonXpath, routineName)));
+        executor.executeScript("arguments[0].click();", deleteButton);
+        wait.until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert().accept();
         return this;
-    }
-
-    public boolean deleteButtonSearch() {
-        try {
-            driver.findElement(deleteButtonXpath).isDisplayed();
-            return true;
-        } catch (NoSuchElementException e){
-            return false;
-        }
     }
 }

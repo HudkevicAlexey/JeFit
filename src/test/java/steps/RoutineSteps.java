@@ -14,6 +14,7 @@ public class RoutineSteps {
 
     public RoutineSteps(WebDriver driver) {
         myRoutinesPage = new MyRoutinesPage(driver);
+        routinesPage = new RoutinesPage(driver);
     }
 
 
@@ -40,25 +41,24 @@ public class RoutineSteps {
     }
 
     @Step("Routine Verification {String routineName}")
-    public RoutineSteps routineVerification(String routineName, Routine routine) {
+    public RoutineSteps routineVerification(String routineName, Routine routine, String message) {
         myRoutinesPage
-                .routineInformationVerification(routineName, routine.getRoutineName())
-                .routineInformationVerification(routineName, routine.getFrequency())
-                .routineInformationVerification(routineName, routine.getDataType())
-                .routineInformationVerification(routineName, routine.getType())
-                .routineInformationVerification(routineName, routine.getDifficulty())
-                .routineInformationVerification(routineName, routine.getTags());
+                .routineInformationVerification(routineName, routine.getRoutineName(), message)
+                .routineInformationVerification(routineName, routine.getFrequency(), message)
+                .routineInformationVerification(routineName, routine.getDataType(), message)
+                .routineInformationVerification(routineName, routine.getType(), message)
+                .routineInformationVerification(routineName, routine.getDifficulty(), message)
+                .routineInformationVerification(routineName, routine.getTags(), message);
         return this;
     }
 
     @Step("Routines deleting")
-    public RoutineSteps routinesDeleting() {
+    public RoutineSteps routinesDeleting(String routineName) {
         myRoutinesPage
-                .openPage();
-        while (myRoutinesPage.deleteButtonSearch()) {
-            myRoutinesPage.clickDeleteRoutineButton();
-        }
-        myRoutinesPage.driver.quit();
+                .openPage()
+                .isPageOpened()
+                .deleteButtonSearch(routineName)
+                .waitForJStoLoad();
         return this;
     }
 

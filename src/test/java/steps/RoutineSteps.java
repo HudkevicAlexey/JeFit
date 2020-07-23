@@ -1,11 +1,13 @@
 package steps;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import pages.RoutinesPage;
 import pages.myjefit.MyRoutinesPage;
 import models.Routine;
 
+@Log4j2
 public class RoutineSteps {
 
     MyRoutinesPage myRoutinesPage;
@@ -42,13 +44,18 @@ public class RoutineSteps {
 
     @Step("Routine Verification {routineName}")
     public RoutineSteps routineVerification(String routineName, Routine routine, String message) {
-        myRoutinesPage
-                .routineInformationVerification(routineName, routine.getRoutineName(), message)
-                .routineInformationVerification(routineName, routine.getFrequency(), message)
-                .routineInformationVerification(routineName, routine.getDataType(), message)
-                .routineInformationVerification(routineName, routine.getType(), message)
-                .routineInformationVerification(routineName, routine.getDifficulty(), message)
-                .routineInformationVerification(routineName, routine.getTags(), message);
+        log.info(routine.getRoutineName() + "name check");
+        myRoutinesPage.routineInformationVerification(routineName, routine.getRoutineName(), message);
+        log.info( routine.getFrequency() + "frequency check");
+        myRoutinesPage.routineInformationVerification(routineName, routine.getFrequency(), message);
+        log.info(routine.getDataType() + "data type check");
+        myRoutinesPage.routineInformationVerification(routineName, routine.getDataType(), message);
+        log.info(routine.getType() + "type check");
+        myRoutinesPage.routineInformationVerification(routineName, routine.getType(), message);
+        log.info(routine.getDifficulty() + "difficulty check");
+        myRoutinesPage.routineInformationVerification(routineName, routine.getDifficulty(), message);
+        log.info(routine.getTags() + "tags check" );
+        myRoutinesPage.routineInformationVerification(routineName, routine.getTags(), message);
         return this;
     }
 

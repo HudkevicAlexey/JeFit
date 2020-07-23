@@ -1,8 +1,9 @@
 package tests;
 
+import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
-
-public class JetFitTest extends BaseTest {
+@Log4j2
+public class LoginTest extends BaseTest {
 
     @Test(description = "Successful login test")
     public void loginTest() {

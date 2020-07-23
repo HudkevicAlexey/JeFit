@@ -1,7 +1,7 @@
 #https://springframework.guru/log4j-2-configuration-using-yaml/
 #https://logging.apache.org/log4j/2.x/manual/configuration.html
 Configuration:
-  status: DEBUG
+  status: WARN
   Properties:
     Property:
       - name: "DefaultPattern"

@@ -22,6 +22,7 @@ public class MyLogsPage extends BasePage {
     By createLogButton = By.xpath("//button[@class='add-log-button']");
     By editButton = By.xpath("//span[@id='edit-session']");
     By logRecordLocator = By.xpath("//div[@class='exercise-block']");
+    By dismissButton = By.xpath("//button[contains(text(),'Dismiss')]");
 
     public MyLogsPage(WebDriver driver) {
         super(driver);
@@ -116,8 +117,13 @@ public class MyLogsPage extends BasePage {
     }
 
     public MyLogsPage createLogButtonClick() {
-        WebElement addLogButton = driver.findElement(By.xpath(String.valueOf(createLogButton)));
-        executor.executeScript("arguments[0].click();", addLogButton);
+        WebElement addLogButton = driver.findElement(createLogButton);
+        try {
+            executor.executeScript("arguments[0].click();", addLogButton);
+        } catch (UnknownError e) {
+            driver.findElement(dismissButton).click();
+            addLogButton.click();
+        }
         return this;
     }
 

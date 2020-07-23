@@ -11,7 +11,7 @@ public class RoutinesPage extends BasePage {
     String commonRoutinesRecordLocatorXpath = "//div[contains(text(),'%s')]/..";
     @FindBy(xpath = "//input[@value='Save To My Workouts']")
     WebElement saveToMyWorkouts;
-
+    By dismissButton = By.xpath("//button[contains(text(),'Dismiss')]");
     JavascriptExecutor executor = (JavascriptExecutor) driver;
 
     public RoutinesPage(WebDriver driver) {
@@ -35,7 +35,12 @@ public class RoutinesPage extends BasePage {
 
     public RoutinesPage clickSaveToMyWorkouts() {
         waitForJStoLoad();
+        try{
         executor.executeScript("arguments[0].click();", saveToMyWorkouts);
+        } catch (UnknownError e) {
+            driver.findElement(dismissButton).click();
+            saveToMyWorkouts.click();
+        }
         return this;
     }
 }

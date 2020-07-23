@@ -27,6 +27,7 @@ public class LogsSteps {
         return this;
     }
 
+    @Step("Workout log adding")
     public LogsSteps addWorkoutLogWithWeightInputs(String day, String bodyPart, String exercise, String exerciseCount) {
         myLogsPage
                 .openPage()
@@ -40,6 +41,7 @@ public class LogsSteps {
         return this;
     }
 
+    @Step("Workout log adding")
     public LogsSteps addCardioWorkoutLog(String day, String bodyPart, String exercise, String exerciseCount) {
         myLogsPage
                 .openPage()
@@ -55,6 +57,7 @@ public class LogsSteps {
         return this;
     }
 
+    @Step("Deleting log record")
     public LogsSteps deleteWorkoutLog(String day) {
         myLogsPage
                 .openPage()
@@ -64,6 +67,7 @@ public class LogsSteps {
         return this;
     }
 
+    @Step("Log record verification ")
     public LogsSteps logRecordVerification(String day, String exercise, String exerciseCount, String message) {
         myLogsPage
                 .openPage()

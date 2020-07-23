@@ -21,24 +21,6 @@ public abstract class BasePage {
 
     protected abstract BasePage isPageOpened();
 
-    public void waitForNumberOfElements(By locator, int numberOfElements) {
-        wait.until(ExpectedConditions.numberOfElementsToBe(locator, numberOfElements));
-        try {
-            wait.until(ExpectedConditions.numberOfElementsToBe(locator, numberOfElements));
-        } catch (TimeoutException ex) {
-            Assert.fail("Колличество элементов на стртанице не соответсвует твоим ожидания");
-        }
-    }
-
-    public boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by);
-            return false;
-        } catch (NoSuchElementException e) {
-            return true;
-        }
-    }
-
     public boolean waitForJStoLoad() {
         // wait for jQuery to load
         ExpectedCondition<Boolean> jQueryLoad = driver -> {

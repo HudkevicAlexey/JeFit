@@ -1,5 +1,6 @@
 package pages.myjefit;
 
+import helper.StepHelper;
 import models.Routine;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -24,6 +25,7 @@ public class MyRoutinesPage extends BasePage {
 
     String routineManagerName = "%s";
     WebElement routineCreationField;
+    StepHelper step = new StepHelper();
 
     public MyRoutinesPage(WebDriver driver) {
         super(driver);
@@ -75,7 +77,7 @@ public class MyRoutinesPage extends BasePage {
 
     public MyRoutinesPage clickSaveButton() {
         try {
-            executor.executeScript("arguments[0].click();",saveButtonName);
+            executor.executeScript("arguments[0].click();", saveButtonName);
         } catch (UnknownError e) {
             driver.findElement(dismissButton).click();
             saveButtonName.click();
@@ -88,10 +90,16 @@ public class MyRoutinesPage extends BasePage {
         return this;
     }
 
-    public MyRoutinesPage routineInformationVerification(String routineName, String routineDetails, String message) {
+    public boolean routineInformationVerification(String routineName, String routineDetails, String message) {
         String routinesInformation = driver.findElement(By.xpath(String.format(actualRoutineNameLocator, routineName))).getText();
-        Assert.assertTrue(routinesInformation.contains(routineDetails), message);
-        return this;
+        try {
+            Assert.assertTrue(routinesInformation.contains(routineDetails), message);
+            step.info(routineDetails + " check");
+            return true;
+        } catch (AssertionError e) {
+            step.error(message + "" + routineDetails + " is not presented in routine record ");
+            return false;
+        }
     }
 
     public MyRoutinesPage deleteButtonSearch(String routineName) {

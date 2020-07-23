@@ -1,5 +1,6 @@
 package steps;
 
+import helper.StepHelper;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
@@ -12,19 +13,23 @@ public class RoutineSteps {
 
     MyRoutinesPage myRoutinesPage;
     RoutinesPage routinesPage;
-
+    StepHelper step;
 
     public RoutineSteps(WebDriver driver) {
         myRoutinesPage = new MyRoutinesPage(driver);
         routinesPage = new RoutinesPage(driver);
+        step = new StepHelper();
     }
 
 
     @Step("Routine Creation")
     public RoutineSteps routineCreation(Routine routine) {
+        step.info("routine page opening");
+        myRoutinesPage.openPage();
+        step.info("create new routine button clicking ");
+        myRoutinesPage.clickCreateNewRoutineButton();
+        step.info("routine form filling ");
         myRoutinesPage
-                .openPage()
-                .clickCreateNewRoutineButton()
                 .routineFormFilling(routine)
                 .clickSaveButton();
         return this;
@@ -32,39 +37,38 @@ public class RoutineSteps {
 
     @Step("Adding Routine {routineName}")
     public RoutineSteps routineDownloading(String routineName) {
+        step.info("routine page opening");
         myRoutinesPage
                 .openPage()
-                .isPageOpened()
-                .clickDownloadNewRoutineButton();
-        routinesPage
-                .selectCommonRoutines(routineName)
-                .clickSaveToMyWorkouts();
+                .isPageOpened();
+        step.info("Download new routine button clicking");
+        myRoutinesPage.clickDownloadNewRoutineButton();
+        step.info(routineName + " routine selection");
+        routinesPage.selectCommonRoutines(routineName);
+        step.info(routineName + "save button clicking ");
+        routinesPage.clickSaveToMyWorkouts();
         return this;
     }
 
     @Step("Routine Verification {routineName}")
     public RoutineSteps routineVerification(String routineName, Routine routine, String message) {
-        log.info(routine.getRoutineName() + "name check");
         myRoutinesPage.routineInformationVerification(routineName, routine.getRoutineName(), message);
-        log.info( routine.getFrequency() + "frequency check");
         myRoutinesPage.routineInformationVerification(routineName, routine.getFrequency(), message);
-        log.info(routine.getDataType() + "data type check");
         myRoutinesPage.routineInformationVerification(routineName, routine.getDataType(), message);
-        log.info(routine.getType() + "type check");
         myRoutinesPage.routineInformationVerification(routineName, routine.getType(), message);
-        log.info(routine.getDifficulty() + "difficulty check");
         myRoutinesPage.routineInformationVerification(routineName, routine.getDifficulty(), message);
-        log.info(routine.getTags() + "tags check" );
         myRoutinesPage.routineInformationVerification(routineName, routine.getTags(), message);
         return this;
     }
 
     @Step("Routines deleting {routineName}")
     public RoutineSteps routinesDeleting(String routineName) {
+        step.info("routine page open");
         myRoutinesPage
                 .openPage()
-                .isPageOpened()
-                .deleteButtonSearch(routineName)
+                .isPageOpened();
+        step.info("routine deleting " + routineName);
+        myRoutinesPage.deleteButtonSearch(routineName)
                 .waitForJStoLoad();
         return this;
     }

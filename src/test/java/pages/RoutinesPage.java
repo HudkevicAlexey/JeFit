@@ -35,8 +35,8 @@ public class RoutinesPage extends BasePage {
 
     public RoutinesPage clickSaveToMyWorkouts() {
         waitForJStoLoad();
-        try{
-        executor.executeScript("arguments[0].click();", saveToMyWorkouts);
+        try {
+            executor.executeScript("arguments[0].click();", saveToMyWorkouts);
         } catch (UnknownError e) {
             driver.findElement(dismissButton).click();
             saveToMyWorkouts.click();

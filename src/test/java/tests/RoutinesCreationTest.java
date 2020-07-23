@@ -29,7 +29,7 @@ public class RoutinesCreationTest extends BaseTest {
         routineSteps
                 .routineCreation(routine)
                 .informationConverter(routine)
-                .routineVerification(name, routine, "Data is not matching");
+                .routineVerification(name, routine, "Data is not matching ");
     }
 
     @AfterMethod(alwaysRun = true)

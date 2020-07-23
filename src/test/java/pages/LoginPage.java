@@ -1,5 +1,6 @@
 package pages;
 
+import helper.StepHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -18,7 +19,10 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    StepHelper step = new StepHelper();
+
     public LoginPage openPage() {
+        step.info("login page opening");
         driver.get("https://www.jefit.com/login/");
         return this;
     }
@@ -29,17 +33,20 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage usernameEntering(String login) {
+        step.info("user name entering " + login);
         driver.findElement(USERNAME_id).sendKeys(login);
         return this;
     }
 
     public LoginPage passwordEntering(String password) {
+        step.info("user name entering " + password);
         driver.findElement(PASSWORD_id).sendKeys(password);
         return this;
 
     }
 
     public LoginPage loginButtonClick() {
+        step.info("login button clicking ");
         driver.findElement(LOGIN_BUTTON_className).click();
         return this;
     }
@@ -49,8 +56,12 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public LoginSteps errorLoginMessageVerification(String expectedErrorMessage) {
-        Assert.assertEquals(driver.findElement(LOGIN_ERROR_MESSAGE_id).getText(), expectedErrorMessage, "Error message is not displayed or not matching with Expected text");
+    public LoginSteps errorLoginMessageVerification(String expectedErrorMessage, String errorMessage) {
+        try {
+            Assert.assertEquals(driver.findElement(LOGIN_ERROR_MESSAGE_id).getText(), expectedErrorMessage);
+        }catch (AssertionError e){
+            step.error(errorMessage);
+        }
         return new LoginSteps(driver);
     }
 }

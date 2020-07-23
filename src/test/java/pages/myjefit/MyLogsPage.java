@@ -116,7 +116,8 @@ public class MyLogsPage extends BasePage {
     }
 
     public MyLogsPage createLogButtonClick() {
-        executor.executeScript("arguments[0].click();", createLogButton);
+        WebElement addLogButton = driver.findElement(By.xpath(String.valueOf(createLogButton)));
+        executor.executeScript("arguments[0].click();", addLogButton);
         return this;
     }
 

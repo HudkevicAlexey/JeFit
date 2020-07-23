@@ -34,6 +34,7 @@ public class RoutinesPage extends BasePage {
     }
 
     public RoutinesPage clickSaveToMyWorkouts() {
+        waitForJStoLoad();
         executor.executeScript("arguments[0].click();", saveToMyWorkouts);
         return this;
     }

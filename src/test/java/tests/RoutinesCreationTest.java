@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 import models.Routine;
 import org.testng.ITestResult;

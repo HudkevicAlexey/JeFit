@@ -67,7 +67,7 @@ public class LogsSteps {
         return this;
     }
 
-    @Step("Log record verification ")
+    @Step("Log record verification")
     public LogsSteps logRecordVerification(String day, String exercise, String exerciseCount, String message) {
         myLogsPage
                 .openPage()

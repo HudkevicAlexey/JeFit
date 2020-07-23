@@ -23,7 +23,7 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    protected LoginPage isPageOpened() {
+    public LoginPage isPageOpened() {
         driver.findElement(googleSignInButton).isDisplayed();
         return this;
     }

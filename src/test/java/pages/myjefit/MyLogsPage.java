@@ -127,7 +127,7 @@ public class MyLogsPage extends BasePage {
     }
 
     public MyLogsPage deleteButtonClick() {
-        WebElement el = driver.findElement(By.xpath("//div[@class='circle-delete-button']//div[contains(text(),'x')]"));
+        WebElement el = driver.findElement(By.xpath("//div[@class='circle-delete-button']"));
         executor.executeScript("arguments[0].click();", el);
         return this;
     }

@@ -33,7 +33,7 @@ public class RoutinesCreationTest extends BaseTest {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void deleteRoutines(ITestResult result) throws Exception {
+    public void deleteRoutines(ITestResult result) {
         String name = (String) result.getParameters()[0];
         routineSteps.routinesDeleting(name);
 

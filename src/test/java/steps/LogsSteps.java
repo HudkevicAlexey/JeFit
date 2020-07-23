@@ -27,7 +27,7 @@ public class LogsSteps {
         return this;
     }
 
-    @Step("Workout log adding day{day},bodypart{bodyPart} exerciseCount{exerciseCount}")
+    @Step("Workout log adding day {day},bodypart {bodyPart} exerciseCount {exerciseCount}")
     public LogsSteps addWorkoutLogWithWeightInputs(String day, String bodyPart, String exercise, String exerciseCount) {
         myLogsPage
                 .openPage()
@@ -41,7 +41,7 @@ public class LogsSteps {
         return this;
     }
 
-    @Step("Workout log adding day{day},bodypart{bodyPart} exerciseCount{exerciseCount}")
+    @Step("Workout log adding day {day},bodypart {bodyPart} exerciseCount {exerciseCount}")
     public LogsSteps addCardioWorkoutLog(String day, String bodyPart, String exercise, String exerciseCount) {
         myLogsPage
                 .openPage()

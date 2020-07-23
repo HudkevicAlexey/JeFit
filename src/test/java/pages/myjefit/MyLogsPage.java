@@ -132,10 +132,10 @@ public class MyLogsPage extends BasePage {
         return this;
     }
 
-    public MyLogsPage logsRecordVerification(String exercise, String exerciseCount, String message) {
+    public MyLogsPage logsRecordVerification(String exercise, String exerciseCount) {
         String routinesInformation = driver.findElement(logRecordLocator).getText();
-        Assert.assertTrue(routinesInformation.contains(exercise), message);
-        Assert.assertTrue(routinesInformation.contains(exerciseCount), message);
+        Assert.assertTrue(routinesInformation.contains(exercise));
+        Assert.assertTrue(routinesInformation.contains(exerciseCount));
         return this;
     }
 }

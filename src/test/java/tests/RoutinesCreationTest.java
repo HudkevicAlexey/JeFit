@@ -14,11 +14,11 @@ public class RoutinesCreationTest extends BaseTest {
     public Object[][] dataForRoutinesInformation() {
         return new Object[][]{
                 {"RoutinesCase", "1 day(s) / week", "Day of Week - E.g., Monday, Tuesday...", "General Fitness", "Beginner       - lifting experience <6 months", "testTag", "NoDescr"},
-                {"RoutineCase2", "2 day(s) / week", "Numerical   - E.g., Day1, Day2...", "Bulking - focus on gaining muscle", "Intermediate - experience >6 and <24 months", "testTag", "NoDescr"},
-                {"RoutineCase3", "3 day(s) / week", "Numerical   - E.g., Day1, Day2...", "Cutting - focus on losing body fat", "Advanced      - experience >24 months", "testTag", "NoDescr"},
-                {"RoutineCase4", "4 day(s) / week", "Numerical   - E.g., Day1, Day2...", "Sport Specific", "Advanced      - experience >24 months", "testTag", "NoDescr"},
-                {"RoutineCase5", "5 day(s) / week", "Numerical   - E.g., Day1, Day2...", "Sport Specific", "Advanced      - experience >24 months", "testTag", "NoDescr"},
-                {"RoutineCase6", "6 day(s) / week", "Numerical   - E.g., Day1, Day2...", "Sport Specific", "Advanced      - experience >24 months", "testTag", "NoDescr"},
+                {"RoutineCase2", "2 day(s) / week", "Day of Week - E.g., Monday, Tuesday...", "Bulking - focus on gaining muscle", "Intermediate - experience >6 and <24 months", "testTag", "NoDescr"},
+                {"RoutineCase3", "3 day(s) / week", "Day of Week - E.g., Monday, Tuesday...", "Cutting - focus on losing body fat", "Advanced      - experience >24 months", "testTag", "NoDescr"},
+                {"RoutineCase4", "4 day(s) / week", "Day of Week - E.g., Monday, Tuesday...", "Sport Specific", "Advanced      - experience >24 months", "testTag", "NoDescr"},
+                {"RoutineCase5", "5 day(s) / week", "Day of Week - E.g., Monday, Tuesday...", "Sport Specific", "Advanced      - experience >24 months", "testTag", "NoDescr"},
+                {"RoutineCase6", "6 day(s) / week", "Day of Week - E.g., Monday, Tuesday...", "Sport Specific", "Advanced      - experience >24 months", "testTag", "NoDescr"},
                 {"RoutineCase7", "7 day(s) / week", "Numerical   - E.g., Day1, Day2...", "Sport Specific", "Advanced      - experience >24 months", "testTag", "NoDescr"}
         };
     }

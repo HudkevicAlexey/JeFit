@@ -12,7 +12,7 @@ public class LogsSteps {
         myLogsPage = new MyLogsPage(driver);
     }
 
-    @Step("Workout log adding")
+    @Step("Workout log adding day{day},bodypart{bodyPart} exerciseCount{exerciseCount}")
     public LogsSteps addWorkoutLogWithTimeInputs(String day, String bodyPart, String exercise, String exerciseCount) {
         myLogsPage
                 .openPage()
@@ -27,7 +27,7 @@ public class LogsSteps {
         return this;
     }
 
-    @Step("Workout log adding")
+    @Step("Workout log adding day{day},bodypart{bodyPart} exerciseCount{exerciseCount}")
     public LogsSteps addWorkoutLogWithWeightInputs(String day, String bodyPart, String exercise, String exerciseCount) {
         myLogsPage
                 .openPage()
@@ -41,7 +41,7 @@ public class LogsSteps {
         return this;
     }
 
-    @Step("Workout log adding")
+    @Step("Workout log adding day{day},bodypart{bodyPart} exerciseCount{exerciseCount}")
     public LogsSteps addCardioWorkoutLog(String day, String bodyPart, String exercise, String exerciseCount) {
         myLogsPage
                 .openPage()
@@ -68,11 +68,11 @@ public class LogsSteps {
     }
 
     @Step("Log record verification")
-    public LogsSteps logRecordVerification(String day, String exercise, String exerciseCount, String message) {
+    public LogsSteps logRecordVerification(String day, String exercise, String exerciseCount) {
         myLogsPage
                 .openPage()
                 .daySelection(day)
-                .logsRecordVerification(exercise, exerciseCount, message);
+                .logsRecordVerification(exercise, exerciseCount);
         return this;
     }
 

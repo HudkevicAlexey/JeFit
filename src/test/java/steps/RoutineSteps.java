@@ -28,7 +28,7 @@ public class RoutineSteps {
         return this;
     }
 
-    @Step("Adding Routine {String routineName}")
+    @Step("Adding Routine {routineName}")
     public RoutineSteps routineDownloading(String routineName) {
         myRoutinesPage
                 .openPage()
@@ -40,7 +40,7 @@ public class RoutineSteps {
         return this;
     }
 
-    @Step("Routine Verification {String routineName}")
+    @Step("Routine Verification {routineName}")
     public RoutineSteps routineVerification(String routineName, Routine routine, String message) {
         myRoutinesPage
                 .routineInformationVerification(routineName, routine.getRoutineName(), message)
@@ -52,7 +52,7 @@ public class RoutineSteps {
         return this;
     }
 
-    @Step("Routines deleting")
+    @Step("Routines deleting {routineName}")
     public RoutineSteps routinesDeleting(String routineName) {
         myRoutinesPage
                 .openPage()

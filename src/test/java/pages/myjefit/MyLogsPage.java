@@ -33,7 +33,7 @@ public class MyLogsPage extends BasePage {
 
     @Override
     public MyLogsPage openPage() {
-        step.info("Logs page opening");
+        step.info("logs page opening");
         driver.get("https://www.jefit.com/my-jefit/my-logs/");
         return this;
     }

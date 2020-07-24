@@ -24,12 +24,9 @@ public class RoutineSteps {
 
     @Step("Routine Creation")
     public RoutineSteps routineCreation(Routine routine) {
-        step.info("routine page opening");
-        myRoutinesPage.openPage();
-        step.info("create new routine button clicking ");
-        myRoutinesPage.clickCreateNewRoutineButton();
-        step.info("routine form filling ");
         myRoutinesPage
+                .openPage()
+                .clickCreateNewRoutineButton()
                 .routineFormFilling(routine)
                 .clickSaveButton();
         return this;
@@ -37,16 +34,13 @@ public class RoutineSteps {
 
     @Step("Adding Routine {routineName}")
     public RoutineSteps routineDownloading(String routineName) {
-        step.info("routine page opening");
         myRoutinesPage
                 .openPage()
-                .isPageOpened();
-        step.info("Download new routine button clicking");
-        myRoutinesPage.clickDownloadNewRoutineButton();
-        step.info(routineName + " routine selection");
-        routinesPage.selectCommonRoutines(routineName);
-        step.info(routineName + "save button clicking ");
-        routinesPage.clickSaveToMyWorkouts();
+                .isPageOpened()
+                .clickDownloadNewRoutineButton();
+        routinesPage
+                .selectCommonRoutines(routineName)
+                .clickSaveToMyWorkouts();
         return this;
     }
 
@@ -63,12 +57,12 @@ public class RoutineSteps {
 
     @Step("Routines deleting {routineName}")
     public RoutineSteps routinesDeleting(String routineName) {
-        step.info("routine page open");
         myRoutinesPage
                 .openPage()
                 .isPageOpened();
         step.info("routine deleting " + routineName);
-        myRoutinesPage.deleteButtonSearch(routineName)
+        myRoutinesPage
+                .deleteButtonSearch(routineName)
                 .waitForJStoLoad();
         return this;
     }

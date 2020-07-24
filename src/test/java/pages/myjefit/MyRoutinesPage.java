@@ -34,6 +34,7 @@ public class MyRoutinesPage extends BasePage {
     JavascriptExecutor executor = (JavascriptExecutor) driver;
 
     public MyRoutinesPage openPage() {
+        step.info("routine page opening");
         driver.get("https://www.jefit.com/my-jefit/my-routines/routine-manager.php");
         return this;
     }
@@ -44,6 +45,7 @@ public class MyRoutinesPage extends BasePage {
     }
 
     public MyRoutinesPage clickCreateNewRoutineButton() {
+        step.info("create new routine button clicking ");
         createNewRoutineButtonXpath.click();
         return this;
     }
@@ -55,12 +57,15 @@ public class MyRoutinesPage extends BasePage {
 
     public MyRoutinesPage write(String text) {
         routineCreationField.sendKeys(text);
+        step.info(text + " was write in textarea");
         return this;
     }
+
 
     public MyRoutinesPage selectValueByName(String value) {
         Select select = new Select(routineCreationField);
         select.selectByVisibleText(value);
+        step.info(value + "was selected in dropdown");
         return this;
     }
 
@@ -77,8 +82,10 @@ public class MyRoutinesPage extends BasePage {
 
     public MyRoutinesPage clickSaveButton() {
         try {
+            step.info("save button clicking ");
             executor.executeScript("arguments[0].click();", saveButtonName);
         } catch (UnknownError e) {
+            step.error("save button was not clicked");
             driver.findElement(dismissButton).click();
             saveButtonName.click();
         }
@@ -86,6 +93,7 @@ public class MyRoutinesPage extends BasePage {
     }
 
     public MyRoutinesPage clickDownloadNewRoutineButton() {
+        step.info("download new routine button clicking");
         downloadRoutineButtonXpath.click();
         return this;
     }
@@ -94,7 +102,7 @@ public class MyRoutinesPage extends BasePage {
         String routinesInformation = driver.findElement(By.xpath(String.format(actualRoutineNameLocator, routineName))).getText();
         try {
             Assert.assertTrue(routinesInformation.contains(routineDetails), message);
-            step.info(routineDetails + " check");
+            step.info(routineDetails + " checking");
             return true;
         } catch (AssertionError e) {
             step.error(message + "" + routineDetails + " is not presented in routine record ");

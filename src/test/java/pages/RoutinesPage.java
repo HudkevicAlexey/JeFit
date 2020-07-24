@@ -1,5 +1,6 @@
 package pages;
 
+import helper.StepHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -18,6 +19,8 @@ public class RoutinesPage extends BasePage {
         super(driver);
     }
 
+    StepHelper step = new StepHelper();
+
     public BasePage openPage() {
         driver.get("https://www.jefit.com/my-jefit/my-routines/routine-manager.php");
         return this;
@@ -28,6 +31,7 @@ public class RoutinesPage extends BasePage {
     }
 
     public RoutinesPage selectCommonRoutines(String routineName) {
+        step.info(routineName + " selection");
         By commonRoutinesRecord = By.xpath(String.format(commonRoutinesRecordLocatorXpath, routineName));
         driver.findElement(commonRoutinesRecord).click();
         return this;
@@ -36,8 +40,10 @@ public class RoutinesPage extends BasePage {
     public RoutinesPage clickSaveToMyWorkouts() {
         waitForJStoLoad();
         try {
+            step.info("save button clicking ");
             executor.executeScript("arguments[0].click();", saveToMyWorkouts);
         } catch (UnknownError e) {
+            step.error("save button was not clicked");
             driver.findElement(dismissButton).click();
             saveToMyWorkouts.click();
         }

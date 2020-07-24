@@ -23,7 +23,7 @@ public class RoutinesCreationTest extends BaseTest {
         };
     }
 
-    @Test(dataProvider = "Data for routine form filling", description = "Creation new routines")
+    @Test(dataProvider = "Data for routine form filling", description = "New routines creation test")
     public void createNewRoutineTest(String name, String frequency, String dataType, String type, String difficulty, String description, String tags) {
         Routine routine = new Routine(name, frequency, dataType, type, difficulty, tags, description);
         routineSteps

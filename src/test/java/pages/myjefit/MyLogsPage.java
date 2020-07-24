@@ -1,5 +1,6 @@
 package pages.myjefit;
 
+import helper.StepHelper;
 import org.openqa.selenium.*;
 import org.testng.Assert;
 import pages.BasePage;
@@ -28,8 +29,11 @@ public class MyLogsPage extends BasePage {
         super(driver);
     }
 
+    StepHelper step = new StepHelper();
+
     @Override
     public MyLogsPage openPage() {
+        step.info("logs page opening");
         driver.get("https://www.jefit.com/my-jefit/my-logs/");
         return this;
     }
@@ -42,30 +46,35 @@ public class MyLogsPage extends BasePage {
     JavascriptExecutor executor = (JavascriptExecutor) driver;
 
     public MyLogsPage daySelection(String day) {
+        step.info("day selection");
         WebElement date = driver.findElement(By.xpath(String.format(dateSelectionLocator, day)));
         date.click();
         return this;
     }
 
     public MyLogsPage addWorkoutLogsButtonClick() {
+        step.info("add workout button clicking");
         waitForJStoLoad();
         driver.findElement(By.xpath(addWorkoutLogsButton)).click();
         return this;
     }
 
     public MyLogsPage bodyPartSelection(String bodyPartName) {
+        step.info("body part selection " + bodyPartName);
         WebElement bodyPartLocatorXpath = driver.findElement(By.xpath(String.format(bodyPartLocator, bodyPartName)));
         executor.executeScript("arguments[0].click();", bodyPartLocatorXpath);
         return this;
     }
 
     public MyLogsPage exerciseSelection(String exerciseName) {
+        step.info("exercise selection " + exerciseName);
         WebElement exerciseLocatorXpath = driver.findElement(By.xpath(String.format(exerciseLocator, exerciseName)));
         executor.executeScript("arguments[0].click();", exerciseLocatorXpath);
         return this;
     }
 
     public MyLogsPage hoursFormFilling(String exerciseCount) {
+        step.info("hours form filling " + exerciseCount);
         waitForJStoLoad();
         List<WebElement> listOfElements = driver.findElements(getInputsHoursLocator);
         for (WebElement element : listOfElements) {
@@ -75,6 +84,7 @@ public class MyLogsPage extends BasePage {
     }
 
     public MyLogsPage minFormFilling(String exerciseCount) {
+        step.info("minutes form filling " + exerciseCount);
         waitForJStoLoad();
         List<WebElement> listOfElements = driver.findElements(getInputsMinLocator);
         for (WebElement element : listOfElements) {
@@ -84,6 +94,7 @@ public class MyLogsPage extends BasePage {
     }
 
     public MyLogsPage secFormFilling(String exerciseCount) {
+        step.info("sec form filling " + exerciseCount);
         waitForJStoLoad();
         List<WebElement> listOfElements = driver.findElements(getInputsSecLocator);
         for (WebElement element : listOfElements) {
@@ -93,6 +104,7 @@ public class MyLogsPage extends BasePage {
     }
 
     public MyLogsPage weightFormFilling(String exerciseCount) {
+        step.info("weight form filling " + exerciseCount);
         List<WebElement> listOfElements = driver.findElements(getInputsWeightLocator);
         for (WebElement element : listOfElements) {
             element.sendKeys(exerciseCount);
@@ -101,6 +113,7 @@ public class MyLogsPage extends BasePage {
     }
 
     public MyLogsPage repsFormFilling(String exerciseCount) {
+        step.info("reps form filling " + exerciseCount);
         List<WebElement> listOfElements = driver.findElements(getInputsRepsLocator);
         for (WebElement element : listOfElements) {
             element.sendKeys(exerciseCount);
@@ -109,6 +122,7 @@ public class MyLogsPage extends BasePage {
     }
 
     public MyLogsPage cardioFormFilling(String exerciseCount) {
+        step.info("cardio form filling " + exerciseCount);
         List<WebElement> listOfElements = driver.findElements(getInputsCardioLocator);
         for (WebElement element : listOfElements) {
             element.sendKeys(exerciseCount);
@@ -139,10 +153,16 @@ public class MyLogsPage extends BasePage {
         return this;
     }
 
-    public MyLogsPage logsRecordVerification(String exercise, String exerciseCount) {
+    public boolean logsRecordVerification(String exercise, String exerciseCount) {
         String routinesInformation = driver.findElement(logRecordLocator).getText();
-        Assert.assertTrue(routinesInformation.contains(exercise));
-        Assert.assertTrue(routinesInformation.contains(exerciseCount));
-        return this;
+        try {
+            step.info("verifying exercise and exercise number");
+            Assert.assertTrue(routinesInformation.contains(exercise));
+            Assert.assertTrue(routinesInformation.contains(exerciseCount));
+            return true;
+        } catch (AssertionError e) {
+            step.error("exercise and exercise number information is not matching ");
+            return false;
+        }
     }
 }

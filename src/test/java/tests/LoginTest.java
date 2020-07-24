@@ -2,6 +2,7 @@ package tests;
 
 import lombok.extern.log4j.Log4j2;
 import org.testng.annotations.Test;
+
 @Log4j2
 public class LoginTest extends BaseTest {
 
@@ -14,10 +15,10 @@ public class LoginTest extends BaseTest {
     @Test(description = "Error message displaying test")
     public void loginErrorMessageTest() {
         loginStep.login("", "")
-                .errorLoginMessageVerification("Invalid username or password")
+                .errorLoginMessageVerification("Invalid username or password", "Error message is not displayed")
                 .login("", "!QAZ2wsx")
-                .errorLoginMessageVerification("Invalid username or password")
+                .errorLoginMessageVerification("Invalid username or password", "Error message is not displayed")
                 .login("TestsUser", "")
-                .errorLoginMessageVerification("Invalid username or password");
+                .errorLoginMessageVerification("Invalid username or password", "Error message is not displayed");
     }
 }

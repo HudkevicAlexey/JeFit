@@ -1,5 +1,6 @@
 package pages.myjefit;
 
+import helper.StepHelper;
 import models.Routine;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -24,6 +25,7 @@ public class MyRoutinesPage extends BasePage {
 
     String routineManagerName = "%s";
     WebElement routineCreationField;
+    StepHelper step = new StepHelper();
 
     public MyRoutinesPage(WebDriver driver) {
         super(driver);
@@ -32,6 +34,7 @@ public class MyRoutinesPage extends BasePage {
     JavascriptExecutor executor = (JavascriptExecutor) driver;
 
     public MyRoutinesPage openPage() {
+        step.info("routine page opening");
         driver.get("https://www.jefit.com/my-jefit/my-routines/routine-manager.php");
         return this;
     }
@@ -42,6 +45,7 @@ public class MyRoutinesPage extends BasePage {
     }
 
     public MyRoutinesPage clickCreateNewRoutineButton() {
+        step.info("create new routine button clicking ");
         createNewRoutineButtonXpath.click();
         return this;
     }
@@ -53,12 +57,15 @@ public class MyRoutinesPage extends BasePage {
 
     public MyRoutinesPage write(String text) {
         routineCreationField.sendKeys(text);
+        step.info(text + " was write in textarea");
         return this;
     }
+
 
     public MyRoutinesPage selectValueByName(String value) {
         Select select = new Select(routineCreationField);
         select.selectByVisibleText(value);
+        step.info(value + "was selected in dropdown");
         return this;
     }
 
@@ -75,8 +82,10 @@ public class MyRoutinesPage extends BasePage {
 
     public MyRoutinesPage clickSaveButton() {
         try {
-            executor.executeScript("arguments[0].click();",saveButtonName);
+            step.info("save button clicking ");
+            executor.executeScript("arguments[0].click();", saveButtonName);
         } catch (UnknownError e) {
+            step.error("save button was not clicked");
             driver.findElement(dismissButton).click();
             saveButtonName.click();
         }
@@ -84,14 +93,21 @@ public class MyRoutinesPage extends BasePage {
     }
 
     public MyRoutinesPage clickDownloadNewRoutineButton() {
+        step.info("download new routine button clicking");
         downloadRoutineButtonXpath.click();
         return this;
     }
 
-    public MyRoutinesPage routineInformationVerification(String routineName, String routineDetails, String message) {
+    public boolean routineInformationVerification(String routineName, String routineDetails, String message) {
         String routinesInformation = driver.findElement(By.xpath(String.format(actualRoutineNameLocator, routineName))).getText();
-        Assert.assertTrue(routinesInformation.contains(routineDetails), message);
-        return this;
+        try {
+            Assert.assertTrue(routinesInformation.contains(routineDetails), message);
+            step.info(routineDetails + " checking");
+            return true;
+        } catch (AssertionError e) {
+            step.error(message + "" + routineDetails + " is not presented in routine record ");
+            return false;
+        }
     }
 
     public MyRoutinesPage deleteButtonSearch(String routineName) {

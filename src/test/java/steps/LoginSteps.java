@@ -25,8 +25,8 @@ public class LoginSteps {
     }
 
     @Step("Verify error message")
-    public LoginSteps errorLoginMessageVerification(String expectedErrorMessage) {
-        loginPage.errorLoginMessageVerification(expectedErrorMessage);
+    public LoginSteps errorLoginMessageVerification(String expectedErrorMessage, String message) {
+        loginPage.errorLoginMessageVerification(expectedErrorMessage, message);
         return this;
     }
 }

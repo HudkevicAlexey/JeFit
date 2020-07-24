@@ -1,5 +1,6 @@
 package steps;
 
+import helper.StepHelper;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
@@ -12,11 +13,12 @@ public class RoutineSteps {
 
     MyRoutinesPage myRoutinesPage;
     RoutinesPage routinesPage;
-
+    StepHelper step;
 
     public RoutineSteps(WebDriver driver) {
         myRoutinesPage = new MyRoutinesPage(driver);
         routinesPage = new RoutinesPage(driver);
+        step = new StepHelper();
     }
 
 
@@ -44,17 +46,11 @@ public class RoutineSteps {
 
     @Step("Routine Verification {routineName}")
     public RoutineSteps routineVerification(String routineName, Routine routine, String message) {
-        log.info(routine.getRoutineName() + "name check");
         myRoutinesPage.routineInformationVerification(routineName, routine.getRoutineName(), message);
-        log.info( routine.getFrequency() + "frequency check");
         myRoutinesPage.routineInformationVerification(routineName, routine.getFrequency(), message);
-        log.info(routine.getDataType() + "data type check");
         myRoutinesPage.routineInformationVerification(routineName, routine.getDataType(), message);
-        log.info(routine.getType() + "type check");
         myRoutinesPage.routineInformationVerification(routineName, routine.getType(), message);
-        log.info(routine.getDifficulty() + "difficulty check");
         myRoutinesPage.routineInformationVerification(routineName, routine.getDifficulty(), message);
-        log.info(routine.getTags() + "tags check" );
         myRoutinesPage.routineInformationVerification(routineName, routine.getTags(), message);
         return this;
     }
@@ -63,7 +59,9 @@ public class RoutineSteps {
     public RoutineSteps routinesDeleting(String routineName) {
         myRoutinesPage
                 .openPage()
-                .isPageOpened()
+                .isPageOpened();
+        step.info("routine deleting " + routineName);
+        myRoutinesPage
                 .deleteButtonSearch(routineName)
                 .waitForJStoLoad();
         return this;

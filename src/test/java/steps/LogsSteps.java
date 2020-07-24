@@ -29,6 +29,7 @@ public class LogsSteps {
 
     @Step("Workout log adding day {day},bodypart {bodyPart} exerciseCount {exerciseCount}")
     public LogsSteps addWorkoutLogWithWeightInputs(String day, String bodyPart, String exercise, String exerciseCount) {
+
         myLogsPage
                 .openPage()
                 .daySelection(day)

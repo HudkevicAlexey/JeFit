@@ -1,16 +1,21 @@
 package steps;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.myjefit.MyLogsPage;
 
 public class LogsSteps {
 
     MyLogsPage myLogsPage;
+    By getInputsHoursLocator = By.xpath("//ul[@class='logsetlist']//input[@name='hour']");
+    By getInputsMinLocator = By.xpath("//ul[@class='logsetlist']//input[@name='min']");
+    By getInputsSecLocator = By.xpath("//ul[@class='logsetlist']//input[@name='sec']");
 
     public LogsSteps(WebDriver driver) {
         myLogsPage = new MyLogsPage(driver);
     }
+
 
     @Step("Workout log adding day{day},bodypart{bodyPart} exerciseCount{exerciseCount}")
     public LogsSteps addWorkoutLogWithTimeInputs(String day, String bodyPart, String exercise, String exerciseCount) {
@@ -20,9 +25,7 @@ public class LogsSteps {
                 .addWorkoutLogsButtonClick()
                 .bodyPartSelection(bodyPart)
                 .exerciseSelection(exercise)
-                .hoursFormFilling(exerciseCount)
-                .minFormFilling(exerciseCount)
-                .secFormFilling(exerciseCount)
+                .timeFormFilling(exerciseCount, getInputsHoursLocator, getInputsMinLocator, getInputsSecLocator)
                 .createLogButtonClick();
         return this;
     }
@@ -51,9 +54,7 @@ public class LogsSteps {
                 .bodyPartSelection(bodyPart)
                 .exerciseSelection(exercise)
                 .cardioFormFilling(exerciseCount)
-                .hoursFormFilling(exerciseCount)
-                .minFormFilling(exerciseCount)
-                .secFormFilling(exerciseCount)
+                .timeFormFilling(exerciseCount, getInputsHoursLocator, getInputsMinLocator, getInputsSecLocator)
                 .createLogButtonClick();
         return this;
     }

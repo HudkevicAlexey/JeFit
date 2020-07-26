@@ -73,31 +73,19 @@ public class MyLogsPage extends BasePage {
         return this;
     }
 
-    public MyLogsPage hoursFormFilling(String exerciseCount) {
+    public MyLogsPage timeFormFilling(String exerciseCount, By hoursInputLocator, By minInputLocator, By secInputLocator) {
         step.info("hours form filling " + exerciseCount);
         waitForJStoLoad();
-        List<WebElement> listOfElements = driver.findElements(getInputsHoursLocator);
+        List<WebElement> listOfElements = driver.findElements(hoursInputLocator) ;
+        List <WebElement> listOfElements2 = driver.findElements(minInputLocator);
+        List <WebElement> listOfElement3 = driver.findElements(secInputLocator);
         for (WebElement element : listOfElements) {
             element.sendKeys(exerciseCount);
         }
-        return this;
-    }
-
-    public MyLogsPage minFormFilling(String exerciseCount) {
-        step.info("minutes form filling " + exerciseCount);
-        waitForJStoLoad();
-        List<WebElement> listOfElements = driver.findElements(getInputsMinLocator);
-        for (WebElement element : listOfElements) {
+        for (WebElement element : listOfElements2) {
             element.sendKeys(exerciseCount);
         }
-        return this;
-    }
-
-    public MyLogsPage secFormFilling(String exerciseCount) {
-        step.info("sec form filling " + exerciseCount);
-        waitForJStoLoad();
-        List<WebElement> listOfElements = driver.findElements(getInputsSecLocator);
-        for (WebElement element : listOfElements) {
+        for (WebElement element : listOfElement3) {
             element.sendKeys(exerciseCount);
         }
         return this;

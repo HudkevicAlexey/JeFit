@@ -4,6 +4,7 @@ import helper.StepHelper;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import pages.RoutinesPage;
 import pages.myjefit.MyRoutinesPage;
 import models.Routine;
@@ -46,12 +47,12 @@ public class RoutineSteps {
 
     @Step("Routine Verification {routineName}")
     public RoutineSteps routineVerification(String routineName, Routine routine, String message) {
-        myRoutinesPage.routineInformationVerification(routineName, routine.getRoutineName(), message);
-        myRoutinesPage.routineInformationVerification(routineName, routine.getFrequency(), message);
-        myRoutinesPage.routineInformationVerification(routineName, routine.getDataType(), message);
-        myRoutinesPage.routineInformationVerification(routineName, routine.getType(), message);
-        myRoutinesPage.routineInformationVerification(routineName, routine.getDifficulty(), message);
-        myRoutinesPage.routineInformationVerification(routineName, routine.getTags(), message);
+        Assert.assertTrue(myRoutinesPage.routineInformationVerification(routineName, routine.getRoutineName(), message));
+        Assert.assertTrue(myRoutinesPage.routineInformationVerification(routineName, routine.getFrequency(), message));
+        Assert.assertTrue(myRoutinesPage.routineInformationVerification(routineName, routine.getDataType(), message));
+        Assert.assertTrue(myRoutinesPage.routineInformationVerification(routineName, routine.getType(), message));
+        Assert.assertTrue(myRoutinesPage.routineInformationVerification(routineName, routine.getDifficulty(), message));
+        Assert.assertTrue(myRoutinesPage.routineInformationVerification(routineName, routine.getTags(), message));
         return this;
     }
 
